@@ -1,0 +1,110 @@
+﻿@model MVCRecipes.Models.MealVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Recipe</h2>
+
+<p>
+    <a asp-action="Create">Create New Recipe</a>
+</p>
+<form asp-controller="Recipes" asp-action="Index" method="get">
+    <p>
+        Search by Recipe Name: <input type="text" asp-for="NameSearchString" name="search">
+        <br />Search by Meal Time: 
+        <select asp-for="MealSearchString" asp-items="Model.MealTime" name="mealTime">
+            <option value="">All</option>
+        </select>
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<table class="blueTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipes[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipes[0].Ingredients)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipes[0].Directions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipes[0].Meal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Recipes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ingredients)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Directions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Meal)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index">Show All Recipes</a>
+</div>
+<!--I know the below style element is frowned upon and no bueno, BUT....
+    I linked in my own style guide as well as added the same css code
+    to the template linked site.css stylesheet to no avail...
+    I'm sure it's just something really dumb on my part that I'm not doing and can easily be shown...--> 
+   <style>table.blueTable {
+    border: 1px solid #1C6EA4;
+    background-color: #EEEEEE;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+    table.blueTable td, table.blueTable th {
+        border: 1px solid #AAAAAA;
+        padding: 3px 2px;
+    }
+
+    table.blueTable tbody td {
+        font-size: 13px;
+    }
+
+    table.blueTable tr:nth-child(even) {
+        background: #D0E4F5;
+    }
+
+    table.blueTable thead {
+        background: #1C6EA4;
+        background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+        background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+        background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+        border-bottom: 2px solid #444444;
+    }
+
+        table.blueTable thead th {
+            font-size: 15px;
+            font-weight: bold;
+            color: #FFFFFF;
+            border-left: 2px solid #D0E4F5;
+        }
+
+            table.blueTable thead th:first-child {
+                border-left: none;
+            }</style>
